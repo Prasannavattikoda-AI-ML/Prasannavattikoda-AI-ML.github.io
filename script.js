@@ -217,9 +217,9 @@ document.querySelectorAll('[data-aos]').forEach(el => {
 
 /* ===== EMAILJS INIT & CONTACT FORM ===== */
 // TODO: Replace these with your actual EmailJS credentials
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY = '4DyLQzfB-Go6T3u_4';
+const EMAILJS_SERVICE_ID = 'service_wtx9ctb';
+const EMAILJS_TEMPLATE_ID = 'template_6qv0udr';
 
 emailjs.init(EMAILJS_PUBLIC_KEY);
 
