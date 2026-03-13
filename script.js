@@ -1,9 +1,69 @@
+/* ===== CONFIGURATION ===== */
+const CONFIG = {
+  particles: {
+    maxCount: 80,
+    densityDivisor: 12000,
+    interactionRadius: 120,
+    connectionDistance: 150,
+    mouseConnectionDistance: 150,
+    baseLineWidth: 0.6,
+    mouseLineWidth: 0.8,
+    maxSpeed: 0.6,
+    glowBoost: 0.5,
+    sizeBoost: 2,
+    connectionOpacity: 0.15,
+    mouseOpacity: 0.25,
+  },
+  scroll: {
+    navThreshold: 50,
+    navOffset: 120,
+  },
+  observer: {
+    threshold: 0.15,
+    rootMarginBottom: '-50px',
+  },
+  form: {
+    resetTimeout: 4000,
+    fetchTimeout: 10000,
+  },
+  resize: {
+    debounceDelay: 250,
+  },
+};
+
+const THEME_COLORS = {
+  dark: {
+    particles: ['6, 214, 160', '0, 180, 216', '123, 97, 255'],
+    connection: '6, 214, 160',
+  },
+  light: {
+    particles: ['5, 150, 105', '8, 145, 178', '108, 79, 255'],
+    connection: '5, 150, 105',
+  },
+};
+
+/* ===== UTILITIES ===== */
+function debounce(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}
+
 /* ===== PARTICLE BACKGROUND ===== */
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
 let mouse = { x: null, y: null };
 let animationId;
+let currentThemeColors = THEME_COLORS.dark;
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+function updateThemeColors() {
+  const theme = document.documentElement.getAttribute('data-theme');
+  currentThemeColors = THEME_COLORS[theme] || THEME_COLORS.dark;
+}
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -15,8 +75,8 @@ class Particle {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
     this.size = Math.random() * 2 + 0.5;
-    this.speedX = (Math.random() - 0.5) * 0.6;
-    this.speedY = (Math.random() - 0.5) * 0.6;
+    this.speedX = (Math.random() - 0.5) * CONFIG.particles.maxSpeed;
+    this.speedY = (Math.random() - 0.5) * CONFIG.particles.maxSpeed;
     this.opacity = Math.random() * 0.5 + 0.2;
     this.colorIndex = Math.floor(Math.random() * 3);
     this.currentOpacity = this.opacity;
@@ -30,14 +90,16 @@ class Particle {
     if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
     if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
 
-    // Mouse interaction: particles glow brighter near cursor
     if (mouse.x !== null && mouse.y !== null) {
       const dx = mouse.x - this.x;
       const dy = mouse.y - this.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 120) {
-        this.currentOpacity = Math.min(1, this.opacity + (1 - dist / 120) * 0.5);
-        this.currentSize = this.size + (1 - dist / 120) * 2;
+      const radius = CONFIG.particles.interactionRadius;
+
+      if (dist < radius) {
+        const proximity = 1 - dist / radius;
+        this.currentOpacity = Math.min(1, this.opacity + proximity * CONFIG.particles.glowBoost);
+        this.currentSize = this.size + proximity * CONFIG.particles.sizeBoost;
       } else {
         this.currentOpacity = this.opacity;
         this.currentSize = this.size;
@@ -49,11 +111,7 @@ class Particle {
   }
 
   draw() {
-    const theme = document.documentElement.getAttribute('data-theme');
-    const colors = theme === 'light'
-      ? ['5, 150, 105', '8, 145, 178', '108, 79, 255']
-      : ['6, 214, 160', '0, 180, 216', '123, 97, 255'];
-    const color = colors[this.colorIndex];
+    const color = currentThemeColors.particles[this.colorIndex];
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.currentSize, 0, Math.PI * 2);
     ctx.fillStyle = `rgba(${color}, ${this.currentOpacity})`;
@@ -63,16 +121,18 @@ class Particle {
 
 function initParticles() {
   particles = [];
-  const count = Math.min(80, Math.floor((canvas.width * canvas.height) / 12000));
+  const count = Math.min(
+    CONFIG.particles.maxCount,
+    Math.floor((canvas.width * canvas.height) / CONFIG.particles.densityDivisor)
+  );
   for (let i = 0; i < count; i++) {
     particles.push(new Particle());
   }
 }
 
 function connectParticles() {
-  const theme = document.documentElement.getAttribute('data-theme');
-  const color = theme === 'light' ? '5, 150, 105' : '6, 214, 160';
-  const maxDist = 150;
+  const color = currentThemeColors.connection;
+  const maxDist = CONFIG.particles.connectionDistance;
 
   for (let a = 0; a < particles.length; a++) {
     for (let b = a + 1; b < particles.length; b++) {
@@ -81,10 +141,10 @@ function connectParticles() {
       const dist = Math.sqrt(dx * dx + dy * dy);
 
       if (dist < maxDist) {
-        const opacity = (1 - dist / maxDist) * 0.15;
+        const opacity = (1 - dist / maxDist) * CONFIG.particles.connectionOpacity;
         ctx.beginPath();
         ctx.strokeStyle = `rgba(${color}, ${opacity})`;
-        ctx.lineWidth = 0.6;
+        ctx.lineWidth = CONFIG.particles.baseLineWidth;
         ctx.moveTo(particles[a].x, particles[a].y);
         ctx.lineTo(particles[b].x, particles[b].y);
         ctx.stroke();
@@ -94,21 +154,30 @@ function connectParticles() {
 
   // Mouse-to-particle connections for tech scanner effect
   if (mouse.x !== null && mouse.y !== null) {
+    const mouseDist = CONFIG.particles.mouseConnectionDistance;
+
     particles.forEach(p => {
       const dx = mouse.x - p.x;
       const dy = mouse.y - p.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 150) {
-        const opacity = (1 - dist / 150) * 0.25;
+
+      if (dist < mouseDist) {
+        const opacity = (1 - dist / mouseDist) * CONFIG.particles.mouseOpacity;
         ctx.beginPath();
         ctx.strokeStyle = `rgba(${color}, ${opacity})`;
-        ctx.lineWidth = 0.8;
+        ctx.lineWidth = CONFIG.particles.mouseLineWidth;
         ctx.moveTo(mouse.x, mouse.y);
         ctx.lineTo(p.x, p.y);
         ctx.stroke();
       }
     });
   }
+}
+
+function drawStaticFrame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => p.draw());
+  connectParticles();
 }
 
 function animateParticles() {
@@ -119,6 +188,15 @@ function animateParticles() {
   });
   connectParticles();
   animationId = requestAnimationFrame(animateParticles);
+}
+
+function startParticles() {
+  cancelAnimationFrame(animationId);
+  if (reducedMotion.matches) {
+    drawStaticFrame();
+  } else {
+    animateParticles();
+  }
 }
 
 // Mouse events for particle interaction
@@ -134,23 +212,35 @@ canvas.addEventListener('mouseleave', () => {
 
 resizeCanvas();
 initParticles();
-animateParticles();
+startParticles();
 
-window.addEventListener('resize', () => {
+function handleResize() {
+  cancelAnimationFrame(animationId);
   resizeCanvas();
   initParticles();
+  startParticles();
+}
+
+window.addEventListener('resize', debounce(handleResize, CONFIG.resize.debounceDelay));
+
+reducedMotion.addEventListener('change', () => {
+  cancelAnimationFrame(animationId);
+  startParticles();
 });
 
 /* ===== THEME TOGGLE ===== */
 const themeToggle = document.getElementById('themeToggle');
-const savedTheme = localStorage.getItem('theme') || 'dark';
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const savedTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
 document.documentElement.setAttribute('data-theme', savedTheme);
+updateThemeColors();
 
 themeToggle.addEventListener('click', () => {
   const current = document.documentElement.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
+  updateThemeColors();
 });
 
 /* ===== NAVBAR ===== */
@@ -159,19 +249,16 @@ const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
 const sections = document.querySelectorAll('.section, .hero');
 
-// Scrolled state
 window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 50);
+  navbar.classList.toggle('scrolled', window.scrollY > CONFIG.scroll.navThreshold);
   updateActiveLink();
 });
 
-// Mobile toggle
 navToggle.addEventListener('click', () => {
   navToggle.classList.toggle('active');
   navLinks.classList.toggle('open');
 });
 
-// Close mobile nav on link click
 navLinks.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => {
     navToggle.classList.remove('active');
@@ -179,11 +266,10 @@ navLinks.querySelectorAll('a').forEach(link => {
   });
 });
 
-// Active link highlighting
 function updateActiveLink() {
   let current = '';
   sections.forEach(section => {
-    const top = section.offsetTop - 120;
+    const top = section.offsetTop - CONFIG.scroll.navOffset;
     if (window.scrollY >= top) {
       current = section.getAttribute('id');
     }
@@ -198,26 +284,23 @@ function updateActiveLink() {
 }
 
 /* ===== SCROLL ANIMATIONS ===== */
-const observerOptions = {
-  threshold: 0.15,
-  rootMargin: '0px 0px -50px 0px'
-};
-
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
     }
   });
-}, observerOptions);
+}, {
+  threshold: CONFIG.observer.threshold,
+  rootMargin: `0px 0px ${CONFIG.observer.rootMarginBottom} 0px`,
+});
 
 document.querySelectorAll('[data-aos]').forEach(el => {
   observer.observe(el);
 });
 
-/* ===== CONTACT FORM (Cloudflare Worker + Resend) ===== */
-// TODO: Replace with your deployed Cloudflare Worker URL
-const WORKER_URL = 'https://contact-api-lime-xi.vercel.app/api/contact';
+/* ===== CONTACT FORM (Vercel Serverless Function) ===== */
+const CONTACT_API = 'https://contact-api-lime-xi.vercel.app/api/contact';
 
 const contactForm = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
@@ -241,11 +324,22 @@ contactForm.addEventListener('submit', async (e) => {
   };
 
   try {
-    const res = await fetch(WORKER_URL, {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), CONFIG.form.fetchTimeout);
+
+    const res = await fetch(CONTACT_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
+
+    const contentType = res.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      throw new Error('Server returned an unexpected response');
+    }
 
     const data = await res.json();
 
@@ -261,33 +355,20 @@ contactForm.addEventListener('submit', async (e) => {
         btn.style.background = '';
         btn.disabled = false;
         formStatus.textContent = '';
-      }, 4000);
+      }, CONFIG.form.resetTimeout);
     } else {
       throw new Error(data.error || 'Failed to send');
     }
   } catch (error) {
     btn.innerHTML = originalText;
     btn.disabled = false;
-    formStatus.textContent = 'Failed to send: ' + error.message;
+
+    const message = error.name === 'AbortError'
+      ? 'Request timed out. Please try again.'
+      : error.message;
+
+    formStatus.textContent = 'Failed to send: ' + message;
     formStatus.classList.add('error');
     console.error('Contact form error:', error);
   }
 });
-
-/* ===== SMOOTH REVEAL FOR ABOUT CODE BLOCK ===== */
-const codeBlock = document.querySelector('.code-block');
-if (codeBlock) {
-  const codeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.2 });
-
-  codeBlock.style.opacity = '0';
-  codeBlock.style.transform = 'translateY(30px)';
-  codeBlock.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  codeObserver.observe(codeBlock);
-}

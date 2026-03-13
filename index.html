@@ -8,18 +8,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <meta name="color-scheme" content="dark light" />
   <link rel="stylesheet" href="style.css" />
-  <!-- Contact form handled by Cloudflare Worker + Resend -->
 </head>
 <body>
   <!-- ========== NAVBAR ========== -->
-  <nav class="navbar" id="navbar">
+  <nav class="navbar glass-heavy" id="navbar">
     <div class="nav-container">
       <a href="#hero" class="nav-logo">&lt;GSP /&gt;</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
       </button>
-      <ul class="nav-links" id="navLinks">
+      <ul class="nav-links glass-heavy" id="navLinks">
         <li><a href="#hero">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -36,7 +36,7 @@
 
   <!-- ========== HERO ========== -->
   <section class="hero" id="hero">
-    <canvas id="particleCanvas"></canvas>
+    <canvas id="particleCanvas" aria-hidden="true" role="presentation"></canvas>
     <div class="hero-content">
       <p class="hero-greeting">Hello, I'm</p>
       <h1 class="hero-name">Gnana Sai Prasanna<br />Vattikunda</h1>
@@ -97,7 +97,7 @@
           </div>
         </div>
         <div class="about-visual">
-          <div class="code-block">
+          <div class="code-block glass" data-aos>
             <div class="code-header">
               <span class="dot red"></span>
               <span class="dot yellow"></span>
@@ -135,22 +135,22 @@
       <div class="skills-category">
         <h3 class="skills-heading"><i class="fas fa-brain"></i> Core Skills</h3>
         <div class="skills-grid">
-          <div class="skill-card" data-aos>
+          <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
             <h4>Machine Learning</h4>
             <p>Supervised &amp; unsupervised learning, model evaluation, feature engineering</p>
           </div>
-          <div class="skill-card" data-aos>
+          <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
             <h4>Neural Networks</h4>
             <p>CNNs, feedforward networks, backpropagation fundamentals</p>
           </div>
-          <div class="skill-card" data-aos>
+          <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fas fa-language"></i></div>
             <h4>NLP Basics</h4>
             <p>Text processing, tokenization, sentiment analysis, word embeddings</p>
           </div>
-          <div class="skill-card" data-aos>
+          <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fas fa-robot"></i></div>
             <h4>Generative AI</h4>
             <p>LLMs, embeddings, prompt engineering, RAG concepts</p>
@@ -160,32 +160,32 @@
       <div class="skills-category">
         <h3 class="skills-heading"><i class="fas fa-code"></i> Technical Skills</h3>
         <div class="skills-grid">
-          <div class="skill-card" data-aos>
+          <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fab fa-python"></i></div>
             <h4>Python</h4>
             <p>Primary language for AI/ML development and scripting</p>
           </div>
-          <div class="skill-card" data-aos>
+          <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fas fa-database"></i></div>
             <h4>SQL</h4>
             <p>Database querying, data manipulation, schema design</p>
           </div>
-          <div class="skill-card" data-aos>
+          <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fas fa-fire"></i></div>
             <h4>PyTorch &amp; TensorFlow</h4>
             <p>Deep learning frameworks for building and training models</p>
           </div>
-          <div class="skill-card" data-aos>
+          <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fas fa-link"></i></div>
             <h4>Hugging Face &amp; LangChain</h4>
             <p>Transformer models, chains, document loaders, embeddings</p>
           </div>
-          <div class="skill-card" data-aos>
+          <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
             <h4>Git &amp; Linux</h4>
             <p>Version control, terminal operations, shell scripting</p>
           </div>
-          <div class="skill-card" data-aos>
+          <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fas fa-book-open"></i></div>
             <h4>Jupyter Notebook</h4>
             <p>Interactive development, data visualization, experimentation</p>
@@ -201,7 +201,7 @@
       <h2 class="section-title"><span class="title-number">03.</span> Projects</h2>
       <div class="projects-grid">
         <!-- Project 1 -->
-        <div class="project-card" data-aos>
+        <div class="project-card glass" data-aos>
           <div class="project-image">
             <div class="project-placeholder">
               <i class="fas fa-comments"></i>
@@ -230,7 +230,7 @@
         </div>
 
         <!-- Project 2 -->
-        <div class="project-card" data-aos>
+        <div class="project-card glass" data-aos>
           <div class="project-image">
             <div class="project-placeholder">
               <i class="fas fa-robot"></i>
@@ -258,7 +258,7 @@
         </div>
 
         <!-- Project 3 -->
-        <div class="project-card" data-aos>
+        <div class="project-card glass" data-aos>
           <div class="project-image">
             <div class="project-placeholder">
               <i class="fas fa-image"></i>
@@ -292,7 +292,7 @@
   <section class="section section-alt" id="education">
     <div class="container">
       <h2 class="section-title"><span class="title-number">04.</span> Education</h2>
-      <div class="education-card" data-aos>
+      <div class="education-card glass" data-aos>
         <div class="edu-icon">
           <i class="fas fa-graduation-cap"></i>
         </div>
@@ -342,15 +342,15 @@
           <button type="submit" class="btn btn-primary btn-full">
             <i class="fas fa-paper-plane"></i> Send Message
           </button>
-          <p class="form-status" id="formStatus"></p>
+          <p class="form-status" id="formStatus" aria-live="polite" aria-atomic="true"></p>
         </form>
         <div class="contact-info">
-          <div class="contact-card">
+          <div class="contact-card glass">
             <i class="fas fa-envelope"></i>
             <h4>Email</h4>
             <a href="mailto:gnanasaiprasanna333@gmail.com">gnanasaiprasanna333@gmail.com</a>
           </div>
-          <div class="contact-card">
+          <div class="contact-card glass">
             <i class="fas fa-map-marker-alt"></i>
             <h4>Location</h4>
             <p>Hyderabad, Telangana</p>
