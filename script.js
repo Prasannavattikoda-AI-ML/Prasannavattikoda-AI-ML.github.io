@@ -217,7 +217,7 @@ document.querySelectorAll('[data-aos]').forEach(el => {
 
 /* ===== CONTACT FORM (Cloudflare Worker + Resend) ===== */
 // TODO: Replace with your deployed Cloudflare Worker URL
-const WORKER_URL = 'https://portfolio-contact.gnanasaiprasanna333.workers.dev';
+const WORKER_URL = 'https://contact-api-lime-xi.vercel.app/api/contact';
 
 const contactForm = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
