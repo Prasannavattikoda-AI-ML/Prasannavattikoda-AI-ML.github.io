@@ -215,18 +215,14 @@ document.querySelectorAll('[data-aos]').forEach(el => {
   observer.observe(el);
 });
 
-/* ===== EMAILJS INIT & CONTACT FORM ===== */
-// TODO: Replace these with your actual EmailJS credentials
-const EMAILJS_PUBLIC_KEY = '4DyLQzfB-Go6T3u_4';
-const EMAILJS_SERVICE_ID = 'service_wtx9ctb';
-const EMAILJS_TEMPLATE_ID = 'template_6qv0udr';
-
-emailjs.init(EMAILJS_PUBLIC_KEY);
+/* ===== CONTACT FORM (Cloudflare Worker + Resend) ===== */
+// TODO: Replace with your deployed Cloudflare Worker URL
+const WORKER_URL = 'https://portfolio-contact.gnanasaiprasanna333.workers.dev';
 
 const contactForm = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
 
-contactForm.addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const btn = contactForm.querySelector('button[type="submit"]');
@@ -237,15 +233,23 @@ contactForm.addEventListener('submit', (e) => {
   formStatus.textContent = '';
   formStatus.className = 'form-status';
 
-  const templateParams = {
+  const payload = {
     from_name: document.getElementById('name').value,
     from_email: document.getElementById('email').value,
     subject: document.getElementById('subject').value,
     message: document.getElementById('message').value,
   };
 
-  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-    .then(() => {
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.success) {
       btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
       btn.style.background = 'linear-gradient(135deg, #06d6a0, #00b4d8)';
       formStatus.textContent = 'Your message has been sent successfully!';
@@ -258,14 +262,16 @@ contactForm.addEventListener('submit', (e) => {
         btn.disabled = false;
         formStatus.textContent = '';
       }, 4000);
-    })
-    .catch((error) => {
-      btn.innerHTML = originalText;
-      btn.disabled = false;
-      formStatus.textContent = 'Failed to send: ' + (error.text || error.message || 'Unknown error');
-      formStatus.classList.add('error');
-      console.error('EmailJS error:', error);
-    });
+    } else {
+      throw new Error(data.error || 'Failed to send');
+    }
+  } catch (error) {
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    formStatus.textContent = 'Failed to send: ' + error.message;
+    formStatus.classList.add('error');
+    console.error('Contact form error:', error);
+  }
 });
 
 /* ===== SMOOTH REVEAL FOR ABOUT CODE BLOCK ===== */
