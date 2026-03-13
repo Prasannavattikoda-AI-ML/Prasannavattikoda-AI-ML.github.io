@@ -1039,7 +1039,7 @@ ul {
     top: 70px;
     left: 0;
     right: 0;
-    background: var(--nav-bg);
+    background: var(--bg-primary);
     flex-direction: column;
     padding: 20px 24px;
     border-bottom: 1px solid var(--border);
@@ -1047,6 +1047,7 @@ ul {
     opacity: 0;
     transition: all 0.35s ease;
     gap: 4px;
+    z-index: 999;
   }
 
   .nav-links.open {
@@ -1054,47 +1055,358 @@ ul {
     opacity: 1;
   }
 
+  .nav-links a {
+    font-size: 1rem;
+    padding: 12px 16px;
+  }
+
   .hero {
     padding: 100px 20px 60px;
+    min-height: calc(100vh - env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero::before {
+    width: 350px;
+    height: 350px;
+  }
+
+  .hero-greeting {
+    font-size: 1rem;
+  }
+
+  .hero-title {
+    font-size: 1rem;
+  }
+
+  .hero-tagline {
+    font-size: 0.9rem;
+    margin-bottom: 28px;
+    padding: 0 8px;
   }
 
   .hero-buttons {
     flex-direction: column;
     align-items: center;
+    gap: 10px;
   }
 
   .hero-buttons .btn {
     width: 100%;
     max-width: 280px;
     justify-content: center;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
+
+  /* Hide scroll indicator on touch devices */
+  .scroll-indicator {
+    display: none;
   }
 
   .section {
-    padding: 70px 0;
+    padding: 60px 0;
+  }
+
+  .container {
+    padding: 0 16px;
   }
 
   .section-title {
-    font-size: 1.6rem;
-    margin-bottom: 36px;
+    font-size: 1.5rem;
+    margin-bottom: 32px;
   }
 
-  .education-card {
-    flex-direction: column;
-    padding: 28px;
+  /* Code block mobile */
+  .code-block pre {
+    padding: 16px;
+    font-size: 0.75rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .code-header {
+    padding: 10px 14px;
+  }
+
+  /* Skills mobile */
+  .skills-heading {
+    font-size: 1.05rem;
+    margin-bottom: 16px;
   }
 
   .skills-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .skill-card {
+    padding: 20px 16px;
+  }
+
+  .skill-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .skill-card h4 {
+    font-size: 0.9rem;
+  }
+
+  .skill-card p {
+    font-size: 0.8rem;
+  }
+
+  /* Projects mobile — always show overlay tags */
+  .project-overlay {
+    transform: translateY(0);
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+  }
+
+  .project-image {
+    height: 160px;
+  }
+
+  .project-info {
+    padding: 20px 16px;
+  }
+
+  .project-info h3 {
+    font-size: 1.05rem;
+  }
+
+  .project-info li {
+    font-size: 0.85rem;
+  }
+
+  .project-links {
+    gap: 20px;
+  }
+
+  .project-link {
+    font-size: 0.9rem;
+    padding: 4px 0;
+  }
+
+  /* Education mobile */
+  .education-card {
+    flex-direction: column;
+    padding: 24px 20px;
+    gap: 20px;
+  }
+
+  .edu-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+
+  .edu-content h3 {
+    font-size: 1.05rem;
+  }
+
+  .course-tags {
+    gap: 6px;
+  }
+
+  .course-tag {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+
+  /* Contact mobile */
+  .contact-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+    padding: 0 8px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 14px 16px;
+    font-size: 1rem;
+  }
+
+  .form-group label {
+    left: 16px;
+    top: 14px;
+    font-size: 0.9rem;
+  }
+
+  .form-group input:focus ~ label,
+  .form-group input:not(:placeholder-shown) ~ label,
+  .form-group textarea:focus ~ label,
+  .form-group textarea:not(:placeholder-shown) ~ label {
+    left: 12px;
+    font-size: 0.72rem;
+  }
+
+  .contact-card {
+    padding: 20px;
+  }
+
+  .social-links a {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Footer mobile */
+  .footer {
+    padding: 32px 16px;
+    padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .footer p {
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 480px) {
-  .skills-grid {
-    grid-template-columns: 1fr;
+  .nav-container {
+    padding: 0 16px;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    top: 60px;
+  }
+
+  .theme-toggle {
+    width: 38px;
+    height: 38px;
+    font-size: 0.9rem;
+  }
+
+  .hero {
+    padding: 80px 16px 40px;
   }
 
   .hero-name {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+
+  .hero-title {
+    font-size: 0.9rem;
+  }
+
+  .hero-tagline {
+    font-size: 0.85rem;
+  }
+
+  .hero-buttons .btn {
+    max-width: 100%;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .section-title {
+    font-size: 1.35rem;
+    margin-bottom: 28px;
+  }
+
+  .about-text p {
+    font-size: 0.9rem;
+  }
+
+  .detail-item {
+    gap: 12px;
+  }
+
+  .detail-label {
+    font-size: 0.72rem;
+  }
+
+  .detail-value {
+    font-size: 0.88rem;
+  }
+
+  .education-card {
+    padding: 20px 16px;
+  }
+
+  .contact-form {
+    gap: 16px;
+  }
+
+  .btn-primary.btn-full {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ===== TOUCH DEVICE OPTIMIZATIONS ===== */
+@media (hover: none) and (pointer: coarse) {
+  /* Always show project tag overlays since there's no hover */
+  .project-overlay {
+    transform: translateY(0);
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+  }
+
+  /* Remove hover transforms to prevent sticky states */
+  .skill-card:hover,
+  .project-card:hover,
+  .education-card:hover,
+  .contact-card:hover {
+    transform: none;
+  }
+
+  /* Keep hover colors/shadows for active states */
+  .skill-card:active {
+    border-color: var(--border-hover);
+    box-shadow: 0 4px 15px var(--accent-glow);
+  }
+
+  .project-card:active {
+    border-color: var(--border-hover);
+    box-shadow: 0 6px 20px var(--accent-glow);
+  }
+
+  /* Ensure minimum touch target sizes */
+  .btn {
+    min-height: 44px;
+  }
+
+  .nav-links a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .social-links a {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .project-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .theme-toggle {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .nav-toggle {
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    align-items: center;
   }
 }
 
