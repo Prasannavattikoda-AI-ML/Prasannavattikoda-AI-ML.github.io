@@ -300,7 +300,7 @@ document.querySelectorAll('[data-aos]').forEach(el => {
 });
 
 /* ===== CONTACT FORM (Vercel Serverless Function) ===== */
-const CONTACT_API = 'https://contact-api-lime-xi.vercel.app/api/contact';
+const CONTACT_API = 'https://contact-api-eight-pi.vercel.app/api/contact';
 
 const contactForm = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
