@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
   <!-- ========== NAVBAR ========== -->
@@ -323,24 +324,25 @@
       <div class="contact-grid">
         <form class="contact-form" id="contactForm">
           <div class="form-group">
-            <input type="text" id="name" placeholder=" " required />
+            <input type="text" id="name" name="from_name" placeholder=" " required />
             <label for="name">Your Name</label>
           </div>
           <div class="form-group">
-            <input type="email" id="email" placeholder=" " required />
+            <input type="email" id="email" name="from_email" placeholder=" " required />
             <label for="email">Your Email</label>
           </div>
           <div class="form-group">
-            <input type="text" id="subject" placeholder=" " />
+            <input type="text" id="subject" name="subject" placeholder=" " />
             <label for="subject">Subject</label>
           </div>
           <div class="form-group">
-            <textarea id="message" rows="5" placeholder=" " required></textarea>
+            <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
             <label for="message">Your Message</label>
           </div>
           <button type="submit" class="btn btn-primary btn-full">
             <i class="fas fa-paper-plane"></i> Send Message
           </button>
+          <p class="form-status" id="formStatus"></p>
         </form>
         <div class="contact-info">
           <div class="contact-card">

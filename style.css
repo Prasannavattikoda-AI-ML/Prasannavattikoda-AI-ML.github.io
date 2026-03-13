@@ -886,6 +886,21 @@ ul {
   min-height: 120px;
 }
 
+.form-status {
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 4px;
+  min-height: 1.2em;
+}
+
+.form-status.success {
+  color: var(--accent);
+}
+
+.form-status.error {
+  color: #f87171;
+}
+
 .contact-info {
   display: flex;
   flex-direction: column;

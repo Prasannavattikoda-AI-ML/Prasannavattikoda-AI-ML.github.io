@@ -215,22 +215,50 @@ document.querySelectorAll('[data-aos]').forEach(el => {
   observer.observe(el);
 });
 
-/* ===== CONTACT FORM ===== */
+/* ===== EMAILJS INIT & CONTACT FORM ===== */
+// TODO: Replace these with your actual EmailJS credentials
+const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
 const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
+
 contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const btn = contactForm.querySelector('button[type="submit"]');
   const originalText = btn.innerHTML;
 
-  btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-  btn.style.background = 'linear-gradient(135deg, #06d6a0, #00b4d8)';
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+  btn.disabled = true;
+  formStatus.textContent = '';
+  formStatus.className = 'form-status';
 
-  setTimeout(() => {
-    btn.innerHTML = originalText;
-    btn.style.background = '';
-    contactForm.reset();
-  }, 2500);
+  emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm)
+    .then(() => {
+      btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+      btn.style.background = 'linear-gradient(135deg, #06d6a0, #00b4d8)';
+      formStatus.textContent = 'Your message has been sent successfully!';
+      formStatus.classList.add('success');
+      contactForm.reset();
+
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.background = '';
+        btn.disabled = false;
+        formStatus.textContent = '';
+      }, 4000);
+    })
+    .catch((error) => {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      formStatus.textContent = 'Failed to send. Please email me directly.';
+      formStatus.classList.add('error');
+      console.error('EmailJS error:', error);
+    });
 });
 
 /* ===== SMOOTH REVEAL FOR ABOUT CODE BLOCK ===== */
