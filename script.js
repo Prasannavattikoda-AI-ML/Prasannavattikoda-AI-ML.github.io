@@ -237,7 +237,14 @@ contactForm.addEventListener('submit', (e) => {
   formStatus.textContent = '';
   formStatus.className = 'form-status';
 
-  emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm)
+  const templateParams = {
+    from_name: document.getElementById('name').value,
+    from_email: document.getElementById('email').value,
+    subject: document.getElementById('subject').value,
+    message: document.getElementById('message').value,
+  };
+
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
     .then(() => {
       btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
       btn.style.background = 'linear-gradient(135deg, #06d6a0, #00b4d8)';
@@ -255,7 +262,7 @@ contactForm.addEventListener('submit', (e) => {
     .catch((error) => {
       btn.innerHTML = originalText;
       btn.disabled = false;
-      formStatus.textContent = 'Failed to send. Please email me directly.';
+      formStatus.textContent = 'Failed to send: ' + (error.text || error.message || 'Unknown error');
       formStatus.classList.add('error');
       console.error('EmailJS error:', error);
     });
