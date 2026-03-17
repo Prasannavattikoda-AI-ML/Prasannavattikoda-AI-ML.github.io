@@ -377,6 +377,27 @@
     </div>
   </footer>
 
+  <!-- ========== RAG CHATBOT WIDGET ========== -->
+  <div id="rag-chat-widget">
+    <button id="rag-chat-toggle" aria-label="Open AI Chat">
+      <i class="fas fa-robot"></i>
+    </button>
+    <div id="rag-chat-box" class="rag-hidden">
+      <div class="rag-header">
+        <span><i class="fas fa-robot"></i> AI Assistant</span>
+        <button id="rag-chat-close" aria-label="Close chat"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="rag-messages">
+        <div class="rag-msg rag-bot">Hi! I'm Prasanna's AI assistant. Ask me anything about his skills, projects, or experience!</div>
+      </div>
+      <div class="rag-input-area">
+        <input type="text" id="rag-input" placeholder="Ask me anything..." autocomplete="off" />
+        <button id="rag-send" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
+  <script src="chatbot.js"></script>
 </body>
 </html>
