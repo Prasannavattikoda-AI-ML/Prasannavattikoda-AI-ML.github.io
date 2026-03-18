@@ -271,6 +271,7 @@
               <div class="project-tags">
                 <span class="tag">TensorFlow</span>
                 <span class="tag">CNN</span>
+                <span class="tag">MobileNetV2</span>
                 <span class="tag">Computer Vision</span>
               </div>
             </div>
@@ -278,19 +279,45 @@
           <div class="project-info">
             <h3>Image Classification Model</h3>
             <ul>
-              <li>Built a CNN using TensorFlow</li>
-              <li>Automated preprocessing and augmentation</li>
-              <li>Achieved strong accuracy on a small dataset</li>
+              <li>Built a custom CNN and MobileNetV2 transfer learning model achieving 79.4% accuracy on CIFAR-10</li>
+              <li>Automated preprocessing pipeline with data augmentation (flip, rotation, zoom, contrast)</li>
+              <li>Supports 1000-class ImageNet inference for real-world image classification</li>
             </ul>
             <div class="project-links">
-              <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-              <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+              <a href="https://github.com/Prasannavattikoda-AI-ML/image-classification" class="project-link" target="_blank"><i class="fab fa-github"></i> Code</a>
+              <a href="#" class="project-link" onclick="openImageClassifierDemo(event)"><i class="fas fa-external-link-alt"></i> Demo</a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- ========== IMAGE CLASSIFIER DEMO MODAL ========== -->
+  <div id="classifier-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-content glass">
+      <button class="modal-close" onclick="closeClassifierDemo()">&times;</button>
+      <h3><i class="fas fa-image"></i> Image Classifier Demo</h3>
+      <p class="modal-subtitle">Upload an image to classify it using MobileNetV2 (1000 ImageNet classes)</p>
+      <div class="demo-upload-area" id="demo-drop-zone">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Drag & drop an image here or click to upload</p>
+        <input type="file" id="demo-file-input" accept="image/*" style="display:none;">
+      </div>
+      <div id="demo-preview" style="display:none;">
+        <img id="demo-image" alt="Uploaded image preview">
+      </div>
+      <div id="demo-results" style="display:none;">
+        <h4>Predictions</h4>
+        <div id="demo-predictions"></div>
+      </div>
+      <div id="demo-loading" style="display:none;">
+        <div class="demo-spinner"></div>
+        <p>Classifying image...</p>
+      </div>
+      <p class="demo-note">Note: Classification runs client-side using TensorFlow.js &mdash; no data is sent to any server.</p>
+    </div>
+  </div>
 
   <!-- ========== EDUCATION ========== -->
   <section class="section section-alt" id="education">
@@ -397,7 +424,10 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>
   <script src="script.js"></script>
   <script src="chatbot.js"></script>
+  <script src="classifier-demo.js"></script>
 </body>
 </html>
