@@ -227,13 +227,13 @@
               <li>Designed a simple Q&amp;A pipeline for custom PDFs</li>
             </ul>
             <div class="project-links">
-              <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-              <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+              <a href="https://github.com/Prasannavattikoda-AI-ML/rag-project" class="project-link" target="_blank"><i class="fab fa-github"></i> Code</a>
+              <a href="#" class="project-link" onclick="openRagChatDemo(event)"><i class="fas fa-external-link-alt"></i> Demo</a>
             </div>
           </div>
         </div>
 
-        <!-- Project 2 -->
+        <!-- Project 2 — Conversational AI Assistant (RAG) -->
         <div class="project-card glass" data-aos>
           <div class="project-image">
             <div class="project-placeholder">
@@ -241,22 +241,23 @@
             </div>
             <div class="project-overlay">
               <div class="project-tags">
-                <span class="tag">Hugging Face</span>
-                <span class="tag">Python</span>
-                <span class="tag">NLP</span>
+                <span class="tag">RAG</span>
+                <span class="tag">Groq</span>
+                <span class="tag">FastAPI</span>
+                <span class="tag">Vercel</span>
               </div>
             </div>
           </div>
           <div class="project-info">
             <h3>Conversational AI Assistant</h3>
             <ul>
-              <li>Developed a basic chatbot using Hugging Face models</li>
-              <li>Added simple conversational memory</li>
-              <li>Integrated with a Python backend</li>
+              <li>Built a RAG chatbot with Groq (Llama 3.3 70B) &amp; Upstash Vector — 100% free tier</li>
+              <li>Scrapes web pages, creates vector embeddings, and answers questions with source citations</li>
+              <li>Deployed as a serverless API on Vercel with an embeddable chat widget</li>
             </ul>
             <div class="project-links">
-              <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-              <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+              <a href="https://github.com/Prasannavattikoda-AI-ML/rag-project" class="project-link" target="_blank"><i class="fab fa-github"></i> Code</a>
+              <a href="#" class="project-link" onclick="openRagChatDemo(event)"><i class="fas fa-external-link-alt"></i> Try It</a>
             </div>
           </div>
         </div>
@@ -408,17 +409,32 @@
   <div id="rag-chat-widget">
     <button id="rag-chat-toggle" aria-label="Open AI Chat">
       <i class="fas fa-robot"></i>
+      <span class="rag-toggle-pulse"></span>
     </button>
     <div id="rag-chat-box" class="rag-hidden">
       <div class="rag-header">
-        <span><i class="fas fa-robot"></i> AI Assistant</span>
+        <div class="rag-header-left">
+          <div class="rag-avatar"><i class="fas fa-robot"></i></div>
+          <div>
+            <span class="rag-header-title">Prasanna's AI Assistant</span>
+            <span class="rag-header-status"><span class="rag-status-dot"></span> Powered by RAG</span>
+          </div>
+        </div>
         <button id="rag-chat-close" aria-label="Close chat"><i class="fas fa-times"></i></button>
       </div>
       <div id="rag-messages">
-        <div class="rag-msg rag-bot">Hi! I'm Prasanna's AI assistant. Ask me anything about his skills, projects, or experience!</div>
+        <div class="rag-msg rag-bot">
+          <div class="rag-bot-avatar"><i class="fas fa-robot"></i></div>
+          <div class="rag-bubble">Hey! I'm Prasanna's AI assistant powered by <strong>RAG</strong> (Retrieval-Augmented Generation). I can answer questions about his skills, projects, and experience. Try asking:</div>
+        </div>
+        <div id="rag-suggestions">
+          <button class="rag-suggestion" data-q="What are Prasanna's skills?"><i class="fas fa-brain"></i> Skills &amp; expertise</button>
+          <button class="rag-suggestion" data-q="Tell me about the RAG chatbot project"><i class="fas fa-project-diagram"></i> RAG project details</button>
+          <button class="rag-suggestion" data-q="What technologies does Prasanna use?"><i class="fas fa-code"></i> Tech stack</button>
+        </div>
       </div>
       <div class="rag-input-area">
-        <input type="text" id="rag-input" placeholder="Ask me anything..." autocomplete="off" />
+        <input type="text" id="rag-input" placeholder="Ask me anything about Prasanna..." autocomplete="off" />
         <button id="rag-send" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
       </div>
     </div>
