@@ -882,22 +882,27 @@ ul {
 
 /* ===== VEDAAI ARCHITECTURE MODAL ===== */
 .veda-arch-modal-content {
-  max-width: 560px;
-  max-height: 85vh;
+  max-width: 540px;
+  max-height: 90vh;
   overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.veda-arch-modal-content::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
 }
 
 .arch-diagram {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  margin: 16px 0 12px;
+  gap: 0;
+  margin: 12px 0 8px;
 }
 
 .arch-row {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   justify-content: center;
   width: 100%;
 }
@@ -905,17 +910,17 @@ ul {
 .arch-node {
   background: var(--bg-card);
   border: 1px solid var(--glass-border);
-  border-radius: 10px;
-  padding: 8px 14px;
+  border-radius: 8px;
+  padding: 6px 12px;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1px;
-  min-width: 110px;
+  gap: 0;
+  min-width: 105px;
   transition: border-color 0.3s ease;
 }
 
@@ -924,15 +929,16 @@ ul {
 }
 
 .arch-node i {
-  font-size: 1.1rem;
-  margin-bottom: 2px;
+  font-size: 1rem;
+  margin-bottom: 1px;
 }
 
 .arch-detail {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 400;
   color: var(--text-secondary);
-  margin-top: 2px;
+  margin-top: 1px;
+  line-height: 1.2;
 }
 
 .arch-wa i { color: #25d366; }
@@ -947,20 +953,21 @@ ul {
 
 .arch-arrow {
   color: var(--text-secondary);
-  font-size: 0.85rem;
-  padding: 1px 0;
+  font-size: 0.75rem;
+  padding: 0;
   line-height: 1;
 }
 
 .arch-split {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 0.75rem;
+  gap: 10px;
+  font-size: 0.7rem;
+  padding: 0;
 }
 
 .arch-label-left, .arch-label-right {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--text-secondary);
   font-weight: 500;
 }
@@ -968,10 +975,10 @@ ul {
 .arch-stats {
   display: flex;
   justify-content: center;
-  gap: 24px;
-  padding-top: 16px;
+  gap: 20px;
+  padding-top: 12px;
   border-top: 1px solid var(--glass-border);
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .arch-stat {
@@ -981,7 +988,7 @@ ul {
 }
 
 .arch-stat-num {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 700;
   background: var(--gradient-accent);
   -webkit-background-clip: text;
@@ -990,7 +997,7 @@ ul {
 }
 
 .arch-stat-label {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--text-secondary);
   font-weight: 500;
   text-transform: uppercase;
