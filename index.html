@@ -67,8 +67,8 @@
       <h2 class="section-title"><span class="title-number">01.</span> About Me</h2>
       <div class="about-grid">
         <div class="about-text">
-          <p>Second-year IT student passionate about Artificial Intelligence, Machine Learning, and Generative AI. Actively building hands-on experience through academic projects, self-learning, and experimentation with modern AI tools.</p>
-          <p>Interested in LLMs, RAG systems, and building intelligent applications. Seeking internship opportunities to grow technical skills and contribute to real-world projects.</p>
+          <p>Second-year IT student building real AI systems &mdash; not just learning about them. Creator of <strong>VedaAI</strong>, a production-grade personal AI assistant that connects Claude to WhatsApp &amp; Telegram with RAG, async architecture, and 84 automated tests.</p>
+          <p>Passionate about LLMs, RAG pipelines, and systems that actually ship. Looking for internship opportunities where I can bring this hands-on engineering mindset to real-world AI products.</p>
           <div class="about-details">
             <div class="detail-item">
               <i class="fas fa-map-marker-alt"></i>
@@ -111,21 +111,21 @@
             <pre><code><span class="kw">class</span> <span class="cls">Developer</span>:
     <span class="kw">def</span> <span class="fn">__init__</span>(<span class="param">self</span>):
         self.name = <span class="str">"Prasanna"</span>
-        self.role = <span class="str">"IT Student"</span>
-        self.interests = [
-            <span class="str">"AI/ML"</span>,
-            <span class="str">"LLMs"</span>,
+        self.role = <span class="str">"AI Engineer"</span>
+        self.building = [
+            <span class="str">"VedaAI"</span>,
             <span class="str">"RAG Systems"</span>,
-            <span class="str">"Gen AI"</span>
+            <span class="str">"AI Agents"</span>
         ]
-        self.currently_learning = [
-            <span class="str">"LangChain"</span>,
-            <span class="str">"Hugging Face"</span>,
+        self.stack = [
+            <span class="str">"Claude API"</span>,
+            <span class="str">"Python AsyncIO"</span>,
+            <span class="str">"ChromaDB"</span>,
             <span class="str">"PyTorch"</span>
         ]
 
     <span class="kw">def</span> <span class="fn">say_hi</span>(<span class="param">self</span>):
-        <span class="kw">print</span>(<span class="str">"Let's build something intelligent!"</span>)</code></pre>
+        <span class="kw">print</span>(<span class="str">"I build AI systems that ship."</span>)</code></pre>
           </div>
         </div>
       </div>
@@ -180,9 +180,24 @@
             <p>Deep learning frameworks for building and training models</p>
           </div>
           <div class="skill-card glass" data-aos>
+            <div class="skill-icon"><i class="fas fa-bolt"></i></div>
+            <h4>Anthropic Claude API</h4>
+            <p>AsyncAnthropic SDK, tool use, multi-turn conversations, agent design</p>
+          </div>
+          <div class="skill-card glass" data-aos>
+            <div class="skill-icon"><i class="fas fa-cogs"></i></div>
+            <h4>AsyncIO &amp; Systems Design</h4>
+            <p>Concurrent adapters, per-chat locking, graceful degradation, subprocess management</p>
+          </div>
+          <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fas fa-link"></i></div>
             <h4>Hugging Face &amp; LangChain</h4>
             <p>Transformer models, chains, document loaders, embeddings</p>
+          </div>
+          <div class="skill-card glass" data-aos>
+            <div class="skill-icon"><i class="fas fa-vial"></i></div>
+            <h4>TDD &amp; Testing</h4>
+            <p>pytest-asyncio, 84+ tests, test-first development, mocking patterns</p>
           </div>
           <div class="skill-card glass" data-aos>
             <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
@@ -204,7 +219,40 @@
     <div class="container">
       <h2 class="section-title"><span class="title-number">03.</span> Projects</h2>
       <div class="projects-grid">
-        <!-- Project 1 -->
+        <!-- Featured Project: VedaAI -->
+        <div class="project-card project-featured glass" data-aos>
+          <div class="project-image project-image-featured">
+            <div class="project-placeholder project-placeholder-featured">
+              <i class="fas fa-brain"></i>
+            </div>
+            <span class="featured-badge"><i class="fas fa-star"></i> Featured</span>
+            <div class="project-overlay">
+              <div class="project-tags">
+                <span class="tag">Claude API</span>
+                <span class="tag">AsyncIO</span>
+                <span class="tag">RAG</span>
+                <span class="tag">ChromaDB</span>
+                <span class="tag">WhatsApp</span>
+                <span class="tag">Telegram</span>
+                <span class="tag">TDD</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>VedaAI &mdash; Personal AI Assistant</h3>
+            <ul>
+              <li>Full-stack AI assistant that auto-replies on WhatsApp &amp; Telegram using Claude + RAG + persona rules</li>
+              <li>Async Python gateway with per-chat locking, rate limiting, dedup, and graceful degradation</li>
+              <li>84 tests (TDD), two-stage code reviews, modular adapter architecture for easy channel extension</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://github.com/Prasannavattikoda-AI-ML/vedaai" class="project-link" target="_blank"><i class="fab fa-github"></i> Code</a>
+              <a href="#" class="project-link" onclick="openVedaArchModal(event)"><i class="fas fa-sitemap"></i> Architecture</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
         <div class="project-card glass" data-aos>
           <div class="project-image">
             <div class="project-placeholder">
@@ -317,6 +365,53 @@
         <p>Classifying image...</p>
       </div>
       <p class="demo-note">Note: Classification runs client-side using TensorFlow.js &mdash; no data is sent to any server.</p>
+    </div>
+  </div>
+
+  <!-- ========== VEDAAI ARCHITECTURE MODAL ========== -->
+  <div id="veda-arch-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-content glass veda-arch-modal-content">
+      <button class="modal-close" onclick="closeVedaArchModal()">&times;</button>
+      <h3><i class="fas fa-brain"></i> VedaAI Architecture</h3>
+      <p class="modal-subtitle">Monolithic async gateway routing messages through Claude + RAG + Persona</p>
+      <div class="arch-diagram">
+        <div class="arch-row arch-adapters">
+          <div class="arch-node arch-wa"><i class="fab fa-whatsapp"></i> WhatsApp<span class="arch-detail">Node.js Bridge</span></div>
+          <div class="arch-node arch-tg"><i class="fab fa-telegram"></i> Telegram<span class="arch-detail">python-telegram-bot</span></div>
+        </div>
+        <div class="arch-arrow"><i class="fas fa-arrow-down"></i></div>
+        <div class="arch-row">
+          <div class="arch-node arch-gateway"><i class="fas fa-route"></i> Gateway<span class="arch-detail">Dedup &middot; Rate Limit &middot; Per-chat Lock</span></div>
+        </div>
+        <div class="arch-arrow"><i class="fas fa-arrow-down"></i></div>
+        <div class="arch-row">
+          <div class="arch-node arch-detector"><i class="fas fa-user-shield"></i> UserDetector<span class="arch-detail">Owner vs. Stranger</span></div>
+        </div>
+        <div class="arch-arrow arch-split">
+          <span class="arch-label-left">Stranger</span>
+          <i class="fas fa-code-branch"></i>
+          <span class="arch-label-right">Owner</span>
+        </div>
+        <div class="arch-row arch-modes">
+          <div class="arch-node arch-auto"><i class="fas fa-reply-all"></i> Auto-Reply<span class="arch-detail">Persona + RAG injected</span></div>
+          <div class="arch-node arch-assist"><i class="fas fa-tools"></i> Assistant<span class="arch-detail">Tools: search_knowledge</span></div>
+        </div>
+        <div class="arch-arrow"><i class="fas fa-arrow-down"></i></div>
+        <div class="arch-row">
+          <div class="arch-node arch-claude"><i class="fas fa-bolt"></i> Claude API<span class="arch-detail">AsyncAnthropic &middot; claude-sonnet-4-6</span></div>
+        </div>
+        <div class="arch-arrow"><i class="fas fa-arrow-down"></i></div>
+        <div class="arch-row arch-storage">
+          <div class="arch-node arch-db"><i class="fas fa-database"></i> SQLite<span class="arch-detail">SQLAlchemy 2.x</span></div>
+          <div class="arch-node arch-chroma"><i class="fas fa-search"></i> ChromaDB<span class="arch-detail">sentence-transformers</span></div>
+        </div>
+      </div>
+      <div class="arch-stats">
+        <div class="arch-stat"><span class="arch-stat-num">84</span><span class="arch-stat-label">Tests</span></div>
+        <div class="arch-stat"><span class="arch-stat-num">15</span><span class="arch-stat-label">Modules</span></div>
+        <div class="arch-stat"><span class="arch-stat-num">2</span><span class="arch-stat-label">Channels</span></div>
+        <div class="arch-stat"><span class="arch-stat-num">27</span><span class="arch-stat-label">Commits</span></div>
+      </div>
     </div>
   </div>
 
@@ -439,6 +534,22 @@
       </div>
     </div>
   </div>
+
+  <script>
+  /* VedaAI Architecture Modal */
+  function openVedaArchModal(e) {
+    e.preventDefault();
+    document.getElementById('veda-arch-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeVedaArchModal() {
+    document.getElementById('veda-arch-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.getElementById('veda-arch-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeVedaArchModal();
+  });
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>

@@ -753,6 +753,172 @@ ul {
   color: var(--accent);
 }
 
+/* ===== FEATURED PROJECT ===== */
+.project-featured {
+  border: 1px solid transparent;
+  background-image: linear-gradient(var(--glass-bg), var(--glass-bg)),
+                    linear-gradient(135deg, var(--accent), var(--accent-purple));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  position: relative;
+}
+
+.project-featured:hover {
+  box-shadow: 0 12px 50px var(--accent-glow), 0 0 30px var(--accent-purple-glow);
+}
+
+.project-placeholder-featured {
+  background: linear-gradient(135deg, rgba(6, 214, 160, 0.2) 0%, rgba(123, 97, 255, 0.2) 50%, rgba(0, 180, 216, 0.15) 100%);
+}
+
+.featured-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 2;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ===== VEDAAI ARCHITECTURE MODAL ===== */
+.veda-arch-modal-content {
+  max-width: 600px;
+}
+
+.arch-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 20px 0;
+}
+
+.arch-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
+}
+
+.arch-node {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 120px;
+  transition: border-color 0.3s ease;
+}
+
+.arch-node:hover {
+  border-color: var(--accent);
+}
+
+.arch-node i {
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+}
+
+.arch-detail {
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.arch-wa i { color: #25d366; }
+.arch-tg i { color: #0088cc; }
+.arch-gateway i { color: var(--accent); }
+.arch-detector i { color: var(--accent-purple); }
+.arch-auto i { color: var(--accent-cyan); }
+.arch-assist i { color: var(--accent-purple); }
+.arch-claude i { color: #d4a574; }
+.arch-db i { color: var(--accent); }
+.arch-chroma i { color: var(--accent-cyan); }
+
+.arch-arrow {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  padding: 2px 0;
+}
+
+.arch-split {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.75rem;
+}
+
+.arch-label-left, .arch-label-right {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.arch-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--glass-border);
+  margin-top: 8px;
+}
+
+.arch-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arch-stat-num {
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.arch-stat-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 480px) {
+  .arch-node {
+    min-width: 90px;
+    padding: 8px 10px;
+    font-size: 0.75rem;
+  }
+  .arch-detail {
+    font-size: 0.6rem;
+  }
+  .arch-stats {
+    gap: 16px;
+  }
+  .arch-stat-num {
+    font-size: 1.1rem;
+  }
+}
+
 /* ===== EDUCATION ===== */
 .education-card {
   display: flex;
